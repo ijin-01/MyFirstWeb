@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, viewport-fit=cover">
+  <title>Battery Controller ヾ(•ω•`)o</title>
+
+  <!-- PWA화 -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Battery Controller ヾ(•ω•`)o">
+  <link rel="apple-touch-icon" href="./icons/icon-152x152-w.png">
+  <link rel="manifest" href="./manifest.json">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register("./sw.js")
+        .then((reg) => {
+          console.log('서비스 워커가 등록됨.', reg);
+        }).catch(e => console.log(e));
+    }
+  </script>
+
+  <link href="./css/common.css" rel="stylesheet">
+</head>
+
+<body class="background">
+  <div id="scrim"></div>
+  <header class="surface">
+    <button id="menu_btn" class="circle ">
+      <span class="material-symbols-rounded">
+        menu
+      </span>
+    </button>
+    <div id="title">
+      <h2>Raw data</h2>
+    </div>
+    <button id="blue_btn" class="circle ">
+      <span class="material-symbols-rounded">
+        bluetooth_searching
+      </span>
+    </button>
+  </header>
+  <main>
+    <div id="sidebar" class="surface">
+      <div id="sidebar_header">
+        <button id="sidebar_menu_btn" class="circle ">
+          <span class="material-symbols-rounded">
+            menu_open
+          </span>
+        </button>
+      </div>
+      <div id="sidebar_lists">
+        <!-- 참조: https://heinafantasy.com/62 -->
+        <div class="" style="position:relative;">
+          <button id="home_page" onclick="location.href='./index.html'">
+            <span class="material-symbols-rounded">
+              home
+            </span>
+            <div>Home</div>
+          </button>
+        </div>
+        <div class="" style="position:relative;">
+          <button id="tuning_page" onclick="location.href='./tuning.html'">
+            <span class="material-symbols-rounded">
+              discover_tune
+            </span>
+            <div>Battery tuning</div>
+          </button>
+        </div>
+        <hr />
+        <p style="margin: 0 0 0 0; padding: 0 1rem 0 1rem; height: 3rem; display: flex; align-items: center;">
+          Info
+        </p>
+        <div class="selected" style="position:relative;">
+          <button id="rawdata_page" onclick="location.href='./rawdata.html'">
+            <span class="material-symbols-rounded">
+              raw_on
+            </span>
+            <div>Raw data</div>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div id="contents">
+      <button id="send_btn" class="circle ">
+        <span class="material-symbols-rounded">
+          send
+        </span>
+      </button>
+      <ul style="margin-top: 0px; margin-bottom: 0px;">
+        <li id="inputVoltage"></li>
+        <li id="outputVoltage"></li>
+        <li id="inputCurrent"></li>
+        <li id="outputCurrent"></li>
+      </ul>
+      <script src="./js/rawdata.js"></script>
+    </div>
+  </main>
+
+  <script src="./js/bluetooth.js"></script>
+  <script src="./js/common.js"></script>
+</body>
+
+</html>

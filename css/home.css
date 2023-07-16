@@ -1,0 +1,26 @@
+.chartContainer {
+  /*
+  background-color: var(--md-sys-color-surface-1);
+   border-radius: 0.75rem;
+  margin: 0 1rem 0 1rem;
+  padding: 0.5rem 1rem 0 0;*/
+}
+
+.bb svg {
+  font-family: 'Rix봄이잖아';
+}
+
+.bb line,
+.bb path {
+  stroke: var(--md-sys-color-on-background);
+}
+
+.bb .bb-button,
+.bb text {
+  fill: var(--md-sys-color-on-background);
+}
+
+.bb-axis-y text,
+.bb-axis-y2 text {
+  fill: var(--md-sys-color-on-background);
+}

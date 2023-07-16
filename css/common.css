@@ -1,0 +1,287 @@
+@import url(./material-theme/theme.css);
+
+
+/* Yanolja Fonts ************************************/
+@font-face {
+  font-family: "Yanolja-Yache-Regular";
+  src: url("../fonts/Yanolja-Yache-Regular.ttf") format("truetype");
+  font-weight: normal;
+}
+
+/* Rix Fonts ****************************************/
+@font-face {
+  font-family: "Rix봄이잖아";
+  src: url("../fonts/Rix봄이잖아.ttf") format("truetype");
+  font-weight: normal;
+}
+
+/* Google Material Icon *****************************/
+@font-face {
+  font-family: "Material Symbols Rounded";
+  font-style: normal;
+  font-weight: 100 700;
+  /* src: url("https://fonts.gstatic.com/s/materialsymbolsrounded/v109/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2") format('woff2'); */
+  src: url("../fonts/sykg-zNym6YjUruM-QrEh7-nyTnjDwKNJ_190Fjzag.woff2") format('woff2');
+}
+
+.material-symbols-rounded {
+  font-family: "Material Symbols Rounded";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5rem;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+:root {
+  --header-height: 4rem;
+  --header-bottom-space: 0.5rem;
+  --sidebar_width: 20rem;
+  --duration-time: 300ms;
+
+  --z-index-menu-button: 1000;
+  --z-index-sidebar: 999;
+  --z-index-scrim: 998;
+  --z-index-header: 997;
+
+  --md-sys-color-surface-1: rgb(var(--md-sys-color-primary-rgb) / 0.05);
+  --md-sys-color-surface-2: rgb(var(--md-sys-color-primary-rgb) / 0.08);
+  --md-sys-color-surface-3: rgb(var(--md-sys-color-primary-rgb) / 0.11);
+  --md-sys-color-surface-4: rgb(var(--md-sys-color-primary-rgb) / 0.12);
+  --md-sys-color-surface-5: rgb(var(--md-sys-color-primary-rgb) / 0.14);
+}
+
+*:not(a) {
+  color: var(--md-sys-color-on-background);
+}
+
+html {
+
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+
+  font-family: "Rix봄이잖아";
+}
+
+body {
+
+  margin: 0 0 0 0;
+}
+
+#scrim {
+  background: rgba(0, 0, 0, 0.32);
+}
+
+header {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  width: calc(100% - env(safe-area-inset-right));
+  height: var(--header-height);
+  left: 0;
+  top: 0;
+  padding-top: env(safe-area-inset-top);
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+
+  z-index: var(--z-index-header);
+}
+
+header>#title {
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+main>div {
+
+  float: left;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+
+main>#sidebar {
+  -webkit-touch-callout: none;
+
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: var(--sidebar_width);
+
+
+  transition-duration: var(--duration-time);
+  transition-timing-function: ease;
+}
+
+main>#sidebar>#sidebar_header {
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 1rem;
+  margin-bottom: var(--header-bottom-space);
+}
+
+main>#sidebar>#sidebar_lists {
+  margin-left: 0.75rem;
+  margin-right: 0.75rem;
+}
+
+main>#sidebar>#sidebar_lists>div {
+  height: 3rem;
+}
+
+main>#sidebar>#sidebar_lists>div>* {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+main>#sidebar>#sidebar_lists>div>button>span {
+  margin-right: 0.75rem;
+}
+
+
+main>#sidebar>#sidebar_lists>hr {
+  border: none;
+  margin: 0 1rem 0 1rem;
+  height: 1px;
+  background-color: var(--md-sys-color-on-background);
+}
+
+.selected:before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: 100px;
+  background: var(--md-sys-color-secondary-container);
+  z-index: -1;
+}
+
+main>#contents {
+  padding-top: calc(env(safe-area-inset-top) + var(--header-height) + var(--header-bottom-space));
+  margin-left: var(--sidebar_width);
+  width: calc(100% - var(--sidebar_width));
+  height: calc(100vh - var(--header-height) - var(--header-bottom-space) - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+
+  transition-duration: var(--duration-time);
+  transition-timing-function: ease;
+}
+
+main.collapse>#sidebar {
+  margin-left: calc(-1 * var(--sidebar_width) - env(safe-area-inset-left));
+}
+
+main.collapse>#contents {
+  margin-left: 0rem;
+  width: 100%;
+}
+
+@media screen and (max-width:960px) {
+  #scrim {
+    position: fixed;
+
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    transition-duration: var(--duration-time);
+    transition-timing-function: ease;
+
+    z-index: var(--z-index-scrim);
+  }
+
+  main>#sidebar {
+    border-radius: 0 1rem 1rem 0;
+    position: fixed;
+    top: 0;
+    margin-left: 0;
+    padding-top: env(safe-area-inset-top);
+
+    z-index: var(--z-index-sidebar);
+  }
+
+  main>#contents {
+    margin-left: 0rem;
+    width: 100%;
+  }
+
+  #scrim.collapse {
+    visibility: hidden;
+    background: transparent;
+  }
+
+  main.collapse>#sidebar {
+    box-shadow: none;
+  }
+
+  main.collapse>#contents {
+    margin-left: 0rem;
+  }
+}
+
+button {
+  background: transparent;
+  border: none;
+
+  height: 100%;
+  width: 100%;
+  border-radius: 100px;
+  padding: 0 0 0 0;
+  display: flex;
+  align-items: center;
+
+  font-family: "Rix봄이잖아";
+  font-size: 1rem;
+
+  z-index: var(--z-index-menu-button);
+}
+
+button:hover {
+  background: var(--md-sys-color-surface-2);
+}
+
+button:hover .material-symbols-rounded {
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 600,
+    'GRAD' 0,
+    'opsz' 24
+}
+
+.circle {
+  width: 3rem;
+  height: 3rem;
+  justify-content: center;
+}
+
+header>#menu_btn {
+  margin-left: 1rem;
+}
+
+header>#blue_btn {
+  margin-left: auto;
+  margin-right: 1rem;
+}
