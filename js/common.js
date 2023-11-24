@@ -2,9 +2,19 @@ const html = document.querySelector("html");
 const main = document.querySelector("main");
 const body = document.querySelector('body');
 const scrim = document.getElementById("scrim");
+
+const home_button = document.getElementById("home_button");
+const tuning_button = document.getElementById("tuning_button");
+const rawdata_button = document.getElementById("rawdata_button");
+
+const home_content = document.getElementById("home_content");
+const tuning_content = document.getElementById("tuning_content");
+const rawdata_content = document.getElementById("rawdata_content");
 const menu_btn = document.getElementById("menu_btn");
 const sidebar_menu_btn = document.getElementById("sidebar_menu_btn");
 const sidebar_buttons = document.getElementById("sidebar_lists").getElementsByClassName("button");
+
+const bluetooth = new Bluetooth();
 
 var meta = document.createElement('meta');
 meta.name = 'theme-color';
@@ -44,26 +54,6 @@ window.onresize = function () {
   scrim.classList.toggle("collapse", width <= 960);
 
   main_collapse_check();
-}
-
-// 그림자를 클릭했을 때
-scrim.onclick = function () {
-  if (scrim.className != "collapse") {
-    sidebar_toggle();
-  }
-}
-
-menu_btn.onclick = function () {
-  sidebar_toggle();
-
-  if (window.innerWidth > 960) {
-    main_collapse_check();
-  }
-}
-
-document.getElementById("sidebar_menu_btn").onclick = function () {
-  sidebar_toggle();
-  menu_btn.innerHTML = "<span class='material-symbols-rounded'>menu</span>";
 }
 
 var isMobile = /Mobi/i.test(window.navigator.userAgent);
@@ -107,3 +97,81 @@ darkModeMeidaQuery.addListener(updateForDarkModeChange);
 
 // ↓ https://velog.io/@dkahsem27/기능-모바일에서-hover를-터치-효과로-바꾸기
 document.addEventListener("touchstart", function () { }, true);
+
+// 그림자를 클릭했을 때
+scrim.onclick = () => {
+  if (scrim.className != "collapse") {
+    sidebar_toggle();
+  }
+}
+
+// 메뉴 버튼을 클릭했을 때
+menu_btn.onclick = () => {
+  sidebar_toggle();
+
+  if (window.innerWidth > 960) {
+    main_collapse_check();
+  }
+}
+sidebar_menu_btn.onclick = () => {
+  sidebar_toggle();
+  menu_btn.innerHTML = "<span class='material-symbols-rounded'>menu</span>";
+}
+
+// 사이드바 버튼을 클릭했을 때
+home_button.onclick = () => {
+  home_button.className = 'selected';
+  tuning_button.className = '';
+  rawdata_button.className = '';
+  
+  home_content.style.visibility = 'visible';
+  home_content.style.height = 'auto';
+  tuning_content.style.visibility = 'hidden';
+  tuning_content.style.height = 0;
+  rawdata_content.style.visibility = 'hidden';
+  rawdata_content.style.height = 0;
+  
+  if (scrim.className != "collapse" && matchMedia("screen and (max-width:960px)").matches) {
+    sidebar_toggle();
+  }
+}
+tuning_button.onclick = () => {
+  home_button.className = '';
+  tuning_button.className = 'selected';
+  rawdata_button.className = '';
+
+  home_content.style.visibility = 'hidden';
+  home_content.style.height = 0;
+  tuning_content.style.visibility = 'visible';
+  tuning_content.style.height = 'auto';
+  rawdata_content.style.visibility = 'hidden';
+  rawdata_content.style.height = 0;
+  
+  if (scrim.className != "collapse" && matchMedia("screen and (max-width:960px)").matches) {
+    sidebar_toggle();
+  }
+}
+rawdata_button.onclick = () => {
+  home_button.className = '';
+  tuning_button.className = '';
+  rawdata_button.className = 'selected';
+
+  home_content.style.visibility = 'hidden';
+  home_content.style.height = 0;
+  tuning_content.style.visibility = 'hidden';
+  tuning_content.style.height = 0;
+  rawdata_content.style.visibility = 'visible';
+  rawdata_content.style.height = 'auto';
+  
+  if (scrim.className != "collapse" && matchMedia("screen and (max-width:960px)").matches) {
+    sidebar_toggle();
+  }
+}
+
+// 블루투스 버튼을 클릭했을 때
+blue_search_btn.onclick = () => {
+  bluetooth.connect();
+};
+blue_dis_btn.onclick = () => {
+  bluetooth.disconnect();
+};

@@ -160,14 +160,6 @@ main>#sidebar>#sidebar_lists>div>button>span {
   margin-right: 0.75rem;
 }
 
-
-main>#sidebar>#sidebar_lists>hr {
-  border: none;
-  margin: 0 1rem 0 1rem;
-  height: 1px;
-  background-color: var(--md-sys-color-on-background);
-}
-
 .selected:before {
   content: "";
   width: 100%;
@@ -198,7 +190,7 @@ main.collapse>#contents {
 }
 
 @media screen and (max-width:960px) {
-  #scrim {
+    #scrim {
     position: fixed;
 
     top: 0;
@@ -281,7 +273,14 @@ header>#menu_btn {
   margin-left: 1rem;
 }
 
-header>#blue_btn {
+header>#blue_search_btn {
   margin-left: auto;
+  width: 3rem;
+  visibility: visible;
+}
+
+header>#blue_dis_btn {
   margin-right: 1rem;
+  width: 0;
+  visibility: hidden;
 }

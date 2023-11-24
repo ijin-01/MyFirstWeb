@@ -13,14 +13,14 @@
  See the License for the specific language governing permissions and
  limitations under the License.
 */
-! function(e) {
+! function (e) {
   if ("object" == typeof exports && "undefined" != typeof module) module.exports = e();
   else if ("function" == typeof define && define.amd) define([], e);
   else {
     var t;
     t = "undefined" != typeof window ? window : "undefined" != typeof global ? global : "undefined" != typeof self ? self : this, t.toolbox = e()
   }
-}(function() {
+}(function () {
   return function e(t, n, r) {
     function o(c, s) {
       if (!n[c]) {
@@ -34,7 +34,7 @@
         var f = n[c] = {
           exports: {}
         };
-        t[c][0].call(f.exports, function(e) {
+        t[c][0].call(f.exports, function (e) {
           var n = t[c][1][e];
           return o(n ? n : e)
         }, f, f.exports, e, t, n, r)
@@ -44,7 +44,7 @@
     for (var i = "function" == typeof require && require, c = 0; c < r.length; c++) o(r[c]);
     return o
   }({
-    1: [function(e, t, n) {
+    1: [function (e, t, n) {
       "use strict";
 
       function r(e, t) {
@@ -61,9 +61,9 @@
       function i(e, t) {
         t = t || {};
         var n = t.successResponses || m.successResponses;
-        return fetch(e.clone()).then(function(r) {
-          return "GET" === e.method && n.test(r.status) && o(t).then(function(n) {
-            n.put(e, r).then(function() {
+        return fetch(e.clone()).then(function (r) {
+          return "GET" === e.method && n.test(r.status) && o(t).then(function (n) {
+            n.put(e, r).then(function () {
               var r = t.cache || m.cache;
               (r.maxEntries || r.maxAgeSeconds) && r.name && c(e, n, r)
             })
@@ -82,35 +82,35 @@
           c = n.maxEntries,
           s = n.name,
           a = Date.now();
-        return r("Updating LRU order for " + o + ". Max entries is " + c + ", max age is " + i), g.getDb(s).then(function(e) {
+        return r("Updating LRU order for " + o + ". Max entries is " + c + ", max age is " + i), g.getDb(s).then(function (e) {
           return g.setTimestampForUrl(e, o, a)
-        }).then(function(e) {
+        }).then(function (e) {
           return g.expireEntries(e, c, i, a)
-        }).then(function(e) {
+        }).then(function (e) {
           r("Successfully updated IDB.");
-          var n = e.map(function(e) {
+          var n = e.map(function (e) {
             return t.delete(e)
           });
-          return Promise.all(n).then(function() {
+          return Promise.all(n).then(function () {
             r("Done with cache cleanup.")
           })
-        }).catch(function(e) {
+        }).catch(function (e) {
           r(e)
         })
       }
 
       function a(e, t, n) {
-        return r("Renaming cache: [" + e + "] to [" + t + "]", n), caches.delete(t).then(function() {
-          return Promise.all([caches.open(e), caches.open(t)]).then(function(t) {
+        return r("Renaming cache: [" + e + "] to [" + t + "]", n), caches.delete(t).then(function () {
+          return Promise.all([caches.open(e), caches.open(t)]).then(function (t) {
             var n = t[0],
               r = t[1];
-            return n.keys().then(function(e) {
-              return Promise.all(e.map(function(e) {
-                return n.match(e).then(function(t) {
+            return n.keys().then(function (e) {
+              return Promise.all(e.map(function (e) {
+                return n.match(e).then(function (t) {
                   return r.put(e, t)
                 })
               }))
-            }).then(function() {
+            }).then(function () {
               return caches.delete(e)
             })
           })
@@ -118,13 +118,13 @@
       }
 
       function u(e, t) {
-        return o(t).then(function(t) {
+        return o(t).then(function (t) {
           return t.add(e)
         })
       }
 
       function f(e, t) {
-        return o(t).then(function(t) {
+        return o(t).then(function (t) {
           return t.delete(e)
         })
       }
@@ -135,7 +135,7 @@
 
       function p(e) {
         var t = Array.isArray(e);
-        if (t && e.forEach(function(e) {
+        if (t && e.forEach(function (e) {
           "string" == typeof e || e instanceof Request || (t = !1)
         }), !t) throw new TypeError("The precache method expects either an array of strings and/or Requests or a Promise that resolves to an array of strings and/or Requests.");
         return e
@@ -169,22 +169,22 @@
       "./idb-cache-expiration": 2,
       "./options": 4
     }],
-    2: [function(e, t, n) {
+    2: [function (e, t, n) {
       "use strict";
 
       function r(e) {
-        return new Promise(function(t, n) {
+        return new Promise(function (t, n) {
           var r = indexedDB.open(u + e, f);
-          r.onupgradeneeded = function() {
+          r.onupgradeneeded = function () {
             var e = r.result.createObjectStore(h, {
               keyPath: p
             });
             e.createIndex(l, l, {
               unique: !1
             })
-          }, r.onsuccess = function() {
+          }, r.onsuccess = function () {
             t(r.result)
-          }, r.onerror = function() {
+          }, r.onerror = function () {
             n(r.error)
           }
         })
@@ -195,64 +195,64 @@
       }
 
       function i(e, t, n) {
-        return new Promise(function(r, o) {
+        return new Promise(function (r, o) {
           var i = e.transaction(h, "readwrite"),
             c = i.objectStore(h);
           c.put({
             url: t,
             timestamp: n
-          }), i.oncomplete = function() {
+          }), i.oncomplete = function () {
             r(e)
-          }, i.onabort = function() {
+          }, i.onabort = function () {
             o(i.error)
           }
         })
       }
 
       function c(e, t, n) {
-        return t ? new Promise(function(r, o) {
+        return t ? new Promise(function (r, o) {
           var i = 1e3 * t,
             c = [],
             s = e.transaction(h, "readwrite"),
             a = s.objectStore(h),
             u = a.index(l);
-          u.openCursor().onsuccess = function(e) {
+          u.openCursor().onsuccess = function (e) {
             var t = e.target.result;
             if (t && n - i > t.value[l]) {
               var r = t.value[p];
               c.push(r), a.delete(r), t.continue()
             }
-          }, s.oncomplete = function() {
+          }, s.oncomplete = function () {
             r(c)
           }, s.onabort = o
         }) : Promise.resolve([])
       }
 
       function s(e, t) {
-        return t ? new Promise(function(n, r) {
+        return t ? new Promise(function (n, r) {
           var o = [],
             i = e.transaction(h, "readwrite"),
             c = i.objectStore(h),
             s = c.index(l),
             a = s.count();
-          s.count().onsuccess = function() {
+          s.count().onsuccess = function () {
             var e = a.result;
-            e > t && (s.openCursor().onsuccess = function(n) {
+            e > t && (s.openCursor().onsuccess = function (n) {
               var r = n.target.result;
               if (r) {
                 var i = r.value[p];
                 o.push(i), c.delete(i), e - o.length > t && r.continue()
               }
             })
-          }, i.oncomplete = function() {
+          }, i.oncomplete = function () {
             n(o)
           }, i.onabort = r
         }) : Promise.resolve([])
       }
 
       function a(e, t, n, r) {
-        return c(e, n, r).then(function(n) {
-          return s(e, t).then(function(e) {
+        return c(e, n, r).then(function (n) {
+          return s(e, t).then(function (e) {
             return n.concat(e)
           })
         })
@@ -269,7 +269,7 @@
         expireEntries: a
       }
     }, {}],
-    3: [function(e, t, n) {
+    3: [function (e, t, n) {
       "use strict";
 
       function r(e) {
@@ -284,7 +284,7 @@
       }
 
       function i(e) {
-        return e.reduce(function(e, t) {
+        return e.reduce(function (e, t) {
           return e.concat(t)
         }, [])
       }
@@ -295,8 +295,8 @@
           cache: {
             name: t
           }
-        }).then(function(e) {
-          return Promise.all(u.preCacheItems).then(i).then(s.validatePrecacheInput).then(function(t) {
+        }).then(function (e) {
+          return Promise.all(u.preCacheItems).then(i).then(s.validatePrecacheInput).then(function (t) {
             return s.debug("preCache list: " + (t.join(", ") || "(none)")), e.addAll(t)
           })
         }))
@@ -316,7 +316,7 @@
       "./router": 6,
       "serviceworker-cache-polyfill": 16
     }],
-    4: [function(e, t, n) {
+    4: [function (e, t, n) {
       "use strict";
       var r;
       r = self.registration ? self.registration.scope : self.scope || new URL("./", self.location).href, t.exports = {
@@ -331,30 +331,30 @@
         successResponses: /^0|([123]\d\d)|(40[14567])|410$/
       }
     }, {}],
-    5: [function(e, t, n) {
+    5: [function (e, t, n) {
       "use strict";
       var r = new URL("./", self.location),
         o = r.pathname,
         i = e("path-to-regexp"),
-        c = function(e, t, n, r) {
+        c = function (e, t, n, r) {
           t instanceof RegExp ? this.fullUrlRegExp = t : (0 !== t.indexOf("/") && (t = o + t), this.keys = [], this.regexp = i(t, this.keys)), this.method = e, this.options = r, this.handler = n
         };
-      c.prototype.makeHandler = function(e) {
+      c.prototype.makeHandler = function (e) {
         var t;
         if (this.regexp) {
           var n = this.regexp.exec(e);
-          t = {}, this.keys.forEach(function(e, r) {
+          t = {}, this.keys.forEach(function (e, r) {
             t[e.name] = n[r + 1]
           })
         }
-        return function(e) {
+        return function (e) {
           return this.handler(e, t, this.options)
         }.bind(this)
       }, t.exports = c
     }, {
       "path-to-regexp": 15
     }],
-    6: [function(e, t, n) {
+    6: [function (e, t, n) {
       "use strict";
 
       function r(e) {
@@ -362,21 +362,21 @@
       }
       var o = e("./route"),
         i = e("./helpers"),
-        c = function(e, t) {
+        c = function (e, t) {
           for (var n = e.entries(), r = n.next(), o = []; !r.done;) {
             var i = new RegExp(r.value[0]);
             i.test(t) && o.push(r.value[1]), r = n.next()
           }
           return o
         },
-        s = function() {
+        s = function () {
           this.routes = new Map, this.routes.set(RegExp, new Map), this.default = null
         };
-      ["get", "post", "put", "delete", "head", "any"].forEach(function(e) {
-        s.prototype[e] = function(t, n, r) {
+      ["get", "post", "put", "delete", "head", "any"].forEach(function (e) {
+        s.prototype[e] = function (t, n, r) {
           return this.add(e, t, n, r)
         }
-      }), s.prototype.add = function(e, t, n, c) {
+      }), s.prototype.add = function (e, t, n, c) {
         c = c || {};
         var s;
         t instanceof RegExp ? s = RegExp : (s = c.origin || self.location.origin, s = s instanceof RegExp ? s.source : r(s)), e = e.toLowerCase();
@@ -387,12 +387,12 @@
         var f = u.get(e),
           h = a.regexp || a.fullUrlRegExp;
         f.has(h.source) && i.debug('"' + t + '" resolves to same regex as existing route.'), f.set(h.source, a)
-      }, s.prototype.matchMethod = function(e, t) {
+      }, s.prototype.matchMethod = function (e, t) {
         var n = new URL(t),
           r = n.origin,
           o = n.pathname;
         return this._match(e, c(this.routes, r), o) || this._match(e, [this.routes.get(RegExp)], t)
-      }, s.prototype._match = function(e, t, n) {
+      }, s.prototype._match = function (e, t, n) {
         if (0 === t.length) return null;
         for (var r = 0; r < t.length; r++) {
           var o = t[r],
@@ -403,19 +403,19 @@
           }
         }
         return null
-      }, s.prototype.match = function(e) {
+      }, s.prototype.match = function (e) {
         return this.matchMethod(e.method, e.url) || this.matchMethod("any", e.url)
       }, t.exports = new s
     }, {
       "./helpers": 1,
       "./route": 5
     }],
-    7: [function(e, t, n) {
+    7: [function (e, t, n) {
       "use strict";
 
       function r(e, t, n) {
-        return n = n || {}, i.debug("Strategy: cache first [" + e.url + "]", n), i.openCache(n).then(function(t) {
-          return t.match(e).then(function(t) {
+        return n = n || {}, i.debug("Strategy: cache first [" + e.url + "]", n), i.openCache(n).then(function (t) {
+          return t.match(e).then(function (t) {
             var r = n.cache || o.cache,
               c = Date.now();
             return i.isResponseFresh(t, r.maxAgeSeconds, c) ? t : i.fetchAndCache(e, n)
@@ -429,12 +429,12 @@
       "../helpers": 1,
       "../options": 4
     }],
-    8: [function(e, t, n) {
+    8: [function (e, t, n) {
       "use strict";
 
       function r(e, t, n) {
-        return n = n || {}, i.debug("Strategy: cache only [" + e.url + "]", n), i.openCache(n).then(function(t) {
-          return t.match(e).then(function(e) {
+        return n = n || {}, i.debug("Strategy: cache only [" + e.url + "]", n), i.openCache(n).then(function (t) {
+          return t.match(e).then(function (e) {
             var t = n.cache || o.cache,
               r = Date.now();
             if (i.isResponseFresh(e, t.maxAgeSeconds, r)) return e
@@ -448,17 +448,17 @@
       "../helpers": 1,
       "../options": 4
     }],
-    9: [function(e, t, n) {
+    9: [function (e, t, n) {
       "use strict";
 
       function r(e, t, n) {
-        return o.debug("Strategy: fastest [" + e.url + "]", n), new Promise(function(r, c) {
+        return o.debug("Strategy: fastest [" + e.url + "]", n), new Promise(function (r, c) {
           var s = !1,
             a = [],
-            u = function(e) {
+            u = function (e) {
               a.push(e.toString()), s ? c(new Error('Both cache and network failed: "' + a.join('", "') + '"')) : s = !0
             },
-            f = function(e) {
+            f = function (e) {
               e instanceof Response ? r(e) : u("No result returned")
             };
           o.fetchAndCache(e.clone(), n).then(f, u), i(e, t, n).then(f, u)
@@ -471,7 +471,7 @@
       "../helpers": 1,
       "./cacheOnly": 8
     }],
-    10: [function(e, t, n) {
+    10: [function (e, t, n) {
       t.exports = {
         networkOnly: e("./networkOnly"),
         networkFirst: e("./networkFirst"),
@@ -486,19 +486,19 @@
       "./networkFirst": 11,
       "./networkOnly": 12
     }],
-    11: [function(e, t, n) {
+    11: [function (e, t, n) {
       "use strict";
 
       function r(e, t, n) {
         n = n || {};
         var r = n.successResponses || o.successResponses,
           c = n.networkTimeoutSeconds || o.networkTimeoutSeconds;
-        return i.debug("Strategy: network first [" + e.url + "]", n), i.openCache(n).then(function(t) {
+        return i.debug("Strategy: network first [" + e.url + "]", n), i.openCache(n).then(function (t) {
           var s, a, u = [];
           if (c) {
-            var f = new Promise(function(r) {
-              s = setTimeout(function() {
-                t.match(e).then(function(e) {
+            var f = new Promise(function (r) {
+              s = setTimeout(function () {
+                t.match(e).then(function (e) {
                   var t = n.cache || o.cache,
                     c = Date.now(),
                     s = t.maxAgeSeconds;
@@ -508,11 +508,11 @@
             });
             u.push(f)
           }
-          var h = i.fetchAndCache(e, n).then(function(e) {
+          var h = i.fetchAndCache(e, n).then(function (e) {
             if (s && clearTimeout(s), r.test(e.status)) return e;
             throw i.debug("Response was an HTTP error: " + e.statusText, n), a = e, new Error("Bad response")
-          }).catch(function(r) {
-            return i.debug("Network or response error, fallback to cache [" + e.url + "]", n), t.match(e).then(function(e) {
+          }).catch(function (r) {
+            return i.debug("Network or response error, fallback to cache [" + e.url + "]", n), t.match(e).then(function (e) {
               if (e) return e;
               if (a) return a;
               throw r
@@ -528,7 +528,7 @@
       "../helpers": 1,
       "../options": 4
     }],
-    12: [function(e, t, n) {
+    12: [function (e, t, n) {
       "use strict";
 
       function r(e, t, n) {
@@ -539,7 +539,7 @@
     }, {
       "../helpers": 1
     }],
-    13: [function(e, t, n) {
+    13: [function (e, t, n) {
       "use strict";
       var r = e("./options"),
         o = e("./router"),
@@ -565,12 +565,12 @@
       "./router": 6,
       "./strategies": 10
     }],
-    14: [function(e, t, n) {
-      t.exports = Array.isArray || function(e) {
+    14: [function (e, t, n) {
+      t.exports = Array.isArray || function (e) {
         return "[object Array]" == Object.prototype.toString.call(e)
       }
     }, {}],
-    15: [function(e, t, n) {
+    15: [function (e, t, n) {
       function r(e, t) {
         for (var n, r = [], o = 0, i = 0, c = "", s = t && t.delimiter || "/"; null != (n = x.exec(e));) {
           var f = n[0],
@@ -611,20 +611,20 @@
       }
 
       function i(e) {
-        return encodeURI(e).replace(/[\/?#]/g, function(e) {
+        return encodeURI(e).replace(/[\/?#]/g, function (e) {
           return "%" + e.charCodeAt(0).toString(16).toUpperCase()
         })
       }
 
       function c(e) {
-        return encodeURI(e).replace(/[?#]/g, function(e) {
+        return encodeURI(e).replace(/[?#]/g, function (e) {
           return "%" + e.charCodeAt(0).toString(16).toUpperCase()
         })
       }
 
       function s(e) {
         for (var t = new Array(e.length), n = 0; n < e.length; n++) "object" == typeof e[n] && (t[n] = new RegExp("^(?:" + e[n].pattern + ")$"));
-        return function(n, r) {
+        return function (n, r) {
           for (var o = "", s = n || {}, a = r || {}, u = a.pretty ? i : encodeURIComponent, f = 0; f < e.length; f++) {
             var h = e[f];
             if ("string" != typeof h) {
@@ -723,36 +723,36 @@
     }, {
       isarray: 14
     }],
-    16: [function(e, t, n) {
-      ! function() {
+    16: [function (e, t, n) {
+      ! function () {
         var e = Cache.prototype.addAll,
           t = navigator.userAgent.match(/(Firefox|Chrome)\/(\d+\.)/);
         if (t) var n = t[1],
           r = parseInt(t[2]);
-        e && (!t || "Firefox" === n && r >= 46 || "Chrome" === n && r >= 50) || (Cache.prototype.addAll = function(e) {
+        e && (!t || "Firefox" === n && r >= 46 || "Chrome" === n && r >= 50) || (Cache.prototype.addAll = function (e) {
           function t(e) {
             this.name = "NetworkError", this.code = 19, this.message = e
           }
           var n = this;
-          return t.prototype = Object.create(Error.prototype), Promise.resolve().then(function() {
+          return t.prototype = Object.create(Error.prototype), Promise.resolve().then(function () {
             if (arguments.length < 1) throw new TypeError;
-            return e = e.map(function(e) {
+            return e = e.map(function (e) {
               return e instanceof Request ? e : String(e)
-            }), Promise.all(e.map(function(e) {
+            }), Promise.all(e.map(function (e) {
               "string" == typeof e && (e = new Request(e));
               var n = new URL(e.url).protocol;
               if ("http:" !== n && "https:" !== n) throw new t("Invalid scheme");
               return fetch(e.clone())
             }))
-          }).then(function(r) {
-            if (r.some(function(e) {
+          }).then(function (r) {
+            if (r.some(function (e) {
               return !e.ok
             })) throw new t("Incorrect response status");
-            return Promise.all(r.map(function(t, r) {
+            return Promise.all(r.map(function (t, r) {
               return n.put(e[r], t)
             }))
-          }).then(function() { })
-        }, Cache.prototype.add = function(e) {
+          }).then(function () { })
+        }, Cache.prototype.add = function (e) {
           return this.addAll([e])
         })
       }()

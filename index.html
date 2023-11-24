@@ -10,8 +10,8 @@
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="Battery Controller ヾ(•ω•`)o">
-  <link rel="apple-touch-icon" href="./icons/icon-152x152-w.png">
-  <link rel="manifest" href="./manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-152x152-w.png">
+  <link rel="manifest" href="manifest.json">
   <script>
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.register("./sw.js")
@@ -21,7 +21,7 @@
     }
   </script>
 
-  <link href="./css/common.css" rel="stylesheet">
+  <link href="css/common.css" rel="stylesheet">
 </head>
 
 <body class="background">
@@ -35,9 +35,14 @@
     <div id="title">
       <h2>Battery Controller</h2>
     </div>
-    <button id="blue_btn" class="circle ">
+    <button id="blue_search_btn" class="circle ">
       <span class="material-symbols-rounded">
         bluetooth_searching
+      </span>
+    </button>
+    <button id="blue_dis_btn" class="circle ">
+      <span class="material-symbols-rounded">
+        bluetooth_disabled
       </span>
     </button>
   </header>
@@ -52,29 +57,24 @@
       </div>
       <div id="sidebar_lists">
         <!-- 참조: https://heinafantasy.com/62 -->
-        <div class="selected" style="position:relative;">
-          <button id="home_page" onclick="location.href='./index.html'">
+        <div id="home_button" class="selected" style="position:relative;">
+          <button>
             <span class="material-symbols-rounded">
               home
             </span>
             <div>Home</div>
           </button>
         </div>
-        <div class="" style="position:relative;">
-          <button id="tuning_page" onclick="location.href='./tuning.html'">
+        <div id="tuning_button" style="position:relative;">
+          <button>
             <span class="material-symbols-rounded">
               discover_tune
             </span>
             <div>Battery tuning</div>
           </button>
         </div>
-        <hr />
-        <p style="margin: 0 0 0 0; padding: 0 1rem 0 1rem; height: 3rem; display: flex; align-items: center;">
-          Info
-        </p>
-
-        <div class="" style="position:relative;">
-          <button id="rawdata_page" onclick="location.href='./rawdata.html'">
+        <div id="rawdata_button" style="position:relative;">
+          <button>
             <span class="material-symbols-rounded">
               raw_on
             </span>
@@ -84,21 +84,52 @@
       </div>
     </div>
     <div id="contents">
-      <link rel="stylesheet" href="./css/home.css">
-      <!-- ↓라이브러리 -->
-      <link rel="stylesheet" href="./css/datalab.css">
-      <script src="./js/billboard.pkgd.js"></script>
-      <script src="./js/js-fluid-meter.js"></script>
+      <button id="send_btn" class="circle " onclick="bluetooth.send([0x02, 0x01, 0x00, 0xff, 0x03]);">
+        <span class="material-symbols-rounded">
+          send
+        </span>
+      </button>
+      <div id="home_content">
+        <link rel="stylesheet" href="./css/home.css">
+        <!-- ↓라이브러리 -->
+        <link rel="stylesheet" href="./css/datalab.css">
+        <script src="./js/billboard.pkgd.js"></script>
+        <script src="./js/js-fluid-meter.js"></script>
 
-      <div id="fluid-meter"></div>
-      <div class="chartContainer">
-        <div id="chart1"></div>
+        <div id="fluid-meter"></div>
+        <div class="chartContainer">
+          <div id="chart1"></div>
+        </div>
+        <div class="chartContainer">
+          <div id="chart2"></div>
+        </div>
+        
+        <script src="./js/home.js"></script>
       </div>
-      <div class="chartContainer">
-        <div id="chart2"></div>
+      <div id="tuning_content" style="visibility: hidden;">
+        
       </div>
-      
-      <script src="./js/home.js"></script>
+      <div id="rawdata_content" style="visibility: hidden;">
+        <ul style="margin-top: 0px; margin-bottom: 0px;">
+          <li id="inputVoltage"></li>
+          <li id="inputCurrent"></li>
+          <li id="outputVoltage"></li>
+          <li id="outputCurrent"></li>
+          <li id="batteryUsage"></li>
+          <li id="fetTemp1"></li>
+          <li id="fetTemp2"></li>
+          <li id="fetTemp3"></li>
+          <li id="fetTemp4"></li>
+          <li id="battTemp"></li>
+          <li id="extTemp"></li>
+          <li id="extHumi"></li>
+          <li id="chargingRate"></li>
+          <li id="efficiency"></li>
+          <li id="warnigCode"></li>
+          <li id="relayState"></li>
+        </ul>
+        <script src="./js/rawdata.js"></script>
+      </div>
     </div>
   </main>
 

@@ -230,23 +230,14 @@ fm.init({
 
 
 let chart1 = new dualSpline("#chart1", "Vi", "Vo");
-let chart2 = new singleSpline("#chart2", "Ii", "#ff7000");
-//let chart2 = new dualSpline("#chart2", undefined, "#0000ff");
+let chart2 = new dualSpline("#chart2", "Ii", "Io");
 
-setInterval(function () {
-  var Vi = localStorage.getItem("inputVoltage");
-  var Vo = localStorage.getItem("outputVoltage");
-  var Ii = localStorage.getItem("inputCurrent");
-  var Io = localStorage.getItem("outputCurrent");
-
-  chart1.updateData(Vi, Vo);
-  chart2.updateData(Ii);
-  //chart2.updateData(Ii, Io);
-  fm.setPercentage(Io);
-
-  /*
+setInterval(() => {
   chart1.updateData(localStorage.getItem("inputVoltage"), localStorage.getItem("outputVoltage"));
-  chart2.updateData(localStorage.getItem("inputCurrent"));
-  fm.setPercentage(localStorage.getItem("outputCurrent"));
-  */
+  chart2.updateData(localStorage.getItem("inputCurrent"), localStorage.getItem("outputCurrent"));
+  
 }, 200);
+
+setInterval(()=>{
+  fm.setPercentage(localStorage.getItem("chargingRate"));
+});

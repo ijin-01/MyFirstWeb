@@ -2,7 +2,6 @@ importScripts('/js/sw-toolbox.js');
 
 toolbox.precache([
   'index.html',
-  'tuning.html',
 
   'css/material-theme/colors.module.css',
   'css/material-theme/theme.css',
@@ -18,7 +17,7 @@ toolbox.precache([
 
   'js/billboard.pkgd.min.js',
   'js/js-fluid-meter.js',
-  'js/bluetooth.js.js',
+  'js/bluetooth.js',
   'js/common.js',
   'js/home.js',
   'js/tuning.js',
