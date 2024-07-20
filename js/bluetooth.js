@@ -7,7 +7,7 @@
 const blue_search_btn = document.getElementById("blue_search_btn");
 const blue_dis_btn = document.getElementById("blue_dis_btn");
 
-let driveService;
+let isConnected = false;
 
 const SOH = 0x01;
 const STX = 0x02;
@@ -240,6 +240,7 @@ class Bluetooth {
             this._characteristic.removeEventListener('characteristicvaluechanged',
                 this._boundHandleCharacteristicValueChanged);
             this._characteristic = null;
+            isConnected = false;
         }
 
         this._device = null;
@@ -304,12 +305,6 @@ class Bluetooth {
             then((characteristic) => {
                 this._startNotifications(characteristic);
                 // blue_search_btn.innerHTML = '<span class="material-symbols-rounded"> bluetooth_disabled </span>';
-
-                blue_search_btn.style.visibility = 'hidden';
-                blue_search_btn.style.width = '0';
-
-                blue_dis_btn.style.visibility = 'visible';
-                blue_dis_btn.style.width = '3rem';
             }).
             catch((error) => {
                 console.log(error);
@@ -396,6 +391,14 @@ class Bluetooth {
             then(() => {
                 characteristic.addEventListener('characteristicvaluechanged',
                     this._boundHandleCharacteristicValueChanged);
+                    
+                isConnected = true;
+
+                blue_search_btn.style.visibility = 'hidden';
+                blue_search_btn.style.width = '0';
+
+                blue_dis_btn.style.visibility = 'visible';
+                blue_dis_btn.style.width = '3rem';
             });
     }
     
@@ -405,13 +408,16 @@ class Bluetooth {
      * @private
      */
     _handleDisconnection(event) {
+        isConnected = false;
         const device = event.target;
 
         console.log('"' + device.name +
             '" bluetooth device disconnected, trying to reconnect...');
 
         this._connectDeviceAndCacheCharacteristic(device).
-            then((characteristic) => this._startNotifications(characteristic)).
+            then((characteristic) => {
+                this._startNotifications(characteristic);
+            }).
             catch((error) => {
                 console.log(error);
                 

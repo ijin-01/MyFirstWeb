@@ -15,13 +15,12 @@ toolbox.precache([
   'css/tuning.css',
   'css/rawdata.css',
 
-  'js/billboard.pkgd.min.js',
-  'js/js-fluid-meter.js',
   'js/bluetooth.js',
   'js/common.js',
   'js/home.js',
   'js/tuning.js',
   'js/rawdata.js',
+  'js/chart.js',
 ]);
 
 toolbox.router.default = toolbox.networkFirst;

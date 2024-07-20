@@ -84,26 +84,19 @@
       </div>
     </div>
     <div id="contents">
-      <button id="send_btn" class="circle " onclick="bluetooth.send([0x02, 0x01, 0x00, 0xff, 0x03]);">
+      <!--button id="send_btn" class="circle " onclick="bluetooth.send([0x02, 0x01, 0x00, 0xff, 0x03]);">
         <span class="material-symbols-rounded">
           send
         </span>
-      </button>
-      <div id="home_content">
+      </button-->
+      <div id="home_content" >
         <link rel="stylesheet" href="./css/home.css">
         <!-- ↓라이브러리 -->
         <link rel="stylesheet" href="./css/datalab.css">
-        <script src="./js/billboard.pkgd.js"></script>
-        <script src="./js/js-fluid-meter.js"></script>
+        <script src="./js/chart.js"></script>
 
-        <div id="fluid-meter"></div>
-        <div class="chartContainer">
-          <div id="chart1"></div>
-        </div>
-        <div class="chartContainer">
-          <div id="chart2"></div>
-        </div>
-        
+        <canvas id="voltageChart"></canvas>
+
         <script src="./js/home.js"></script>
       </div>
       <div id="tuning_content" style="visibility: hidden;">
@@ -128,6 +121,9 @@
           <li id="warnigCode"></li>
           <li id="relayState"></li>
         </ul>
+
+        
+
         <script src="./js/rawdata.js"></script>
       </div>
     </div>

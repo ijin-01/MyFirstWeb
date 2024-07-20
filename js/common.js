@@ -175,3 +175,9 @@ blue_search_btn.onclick = () => {
 blue_dis_btn.onclick = () => {
   bluetooth.disconnect();
 };
+
+setInterval(() => {
+  if(isConnected == true){
+    bluetooth.send([0x02, 0x01, 0x00, 0xff, 0x03]);
+  }
+}, 500);
